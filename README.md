@@ -358,3 +358,14 @@ ketika username serta password berhasil didaftarkan, akan menampilkan "Register 
             printf("%s\n",regist);
         }
 ```
+## Soal 4
+
+Batu mulia pertama . Emerald. Batu mulia yang berwarna hijau mengkilat. Pada
+batu itu Ia menemukan sebuah kalimat petunjuk. Ada sebuah teka-teki yang berisi:
+1. Buatlah program C dengan nama " 4a.c ", yang berisi program untuk
+melakukan perkalian matriks. Ukuran matriks pertama adalah 4x2 , dan
+matriks kedua 2x5 . Isi dari matriks didefinisikan di dalam kodingan. Matriks
+nantinya akan berisi angka 1-20 ( tidak perlu dibuat filter angka).
+2. Tampilkan matriks hasil perkalian tadi ke layar.
+
+Pada soal ini kita diminta membuat program yang berisi perkalian matriks. Matriks yang akan dihitung sudah terdefinisi di dalam koding dengan ukuran tertentu. Pada program ini digunakan pointer untuk menyimpan hasil matriks.
