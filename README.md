@@ -207,3 +207,4 @@ kemudian menampilkan list akun-akun yang telah terdaftar pada server dengan
                 }
                 fclose(fp2);
 ```
+### Client Side
