@@ -208,10 +208,153 @@ kemudian menampilkan list akun-akun yang telah terdaftar pada server dengan
                 fclose(fp2);
 ```
 ### Client Side
+
 #### Variabel yang terdapat pada client
 ```c
     int sock = 0, valread;
     char regist[1024];
     char usrname[50];
     char passwrd[50];
+```
+```c
+        char input[25];
+        scanf("%s",input);
+
+        if(strcmp("login",input)==0)
+        {
+            send(sock, input, strlen(input), 0);
+            printf("[[[==========-> LOGIN <-==========]]]\n");
+            printf("Username:\t");
+            scanf("%s",usrname);
+            send(sock, usrname, strlen(usrname), 0);
+            printf("Password:\t");
+            scanf("%s",passwrd);
+            send(sock, passwrd, strlen(passwrd), 0);
+        }
+        
+        else if(strcmp("register",input)==0)
+        {
+            send(sock, input, strlen(input), 0);
+            printf("[[[==========-> REGISTRATION <-==========]]]\n");
+            printf("Username:\t");
+            scanf("%s",usrname);
+            send(sock, usrname, strlen(usrname), 0);
+            printf("Password:\t");
+            scanf("%s",passwrd);
+            send(sock, passwrd, strlen(passwrd), 0);
+        }
+
+        read(sock, regist, 1024);
+        if(strcmp("Auth Success",regist) == 0)
+        {
+            printf("Register Success\n");
+        }
+        else if(strcmp("Auth Failed",regist) == 0)
+        {
+            printf("Register Failed\n");
+        }
+        else if(strcmp("Login Success",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
+        else if(strcmp("Login Failed",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
+    }
+```
+#### Screen 1
+
+##### ★ Pada screen 1 kalian dapat menginputkan “login”, setelah menekan enter anda diminta untuk menginputkan username dan password seperti berikut Username : { ex : qiqi } Password : { ex : aku nggak marah!! }
+
+##### ★ Jika login berhasil maka akan menampilkan pesan “login success”, jika gagal akan menampilkan pesan “login failed” (pengecekan login hanya mengecek username dan password, maka dapat multi autentikasi dengan username dan password yang sama)
+
+pertama, ketika user memasukkan pilihan login, maka client akan diminta memasukkan username serta password 
+
+```c
+        if(strcmp("login",input)==0)
+        {
+            send(sock, input, strlen(input), 0);
+            printf("[[[==========-> LOGIN <-==========]]]\n");
+            printf("Username:\t");
+            scanf("%s",usrname);
+            send(sock, usrname, strlen(usrname), 0);
+            printf("Password:\t");
+            scanf("%s",passwrd);
+            send(sock, passwrd, strlen(passwrd), 0);
+        }
+```
+setelah user memasukkan username serta password, client akan mengirimkan username serta password kepada server untuk dicek apakah valid atau tidak.
+
+client akan menerima pesan dari server apakah username dan password benar atau salah
+
+```c
+        read(sock, regist, 1024);
+```
+
+jika username dan password benar, maka akan menampilkan "Login Success" jika tidak akan menampilkan "Login Failed" pada layar client
+```c
+        if(strcmp("Auth Success",regist) == 0)
+        {
+            printf("Register Success\n");
+        }
+        else if(strcmp("Auth Failed",regist) == 0)
+        {
+            printf("Register Failed\n");
+        }
+        else if(strcmp("Login Success",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
+        else if(strcmp("Login Failed",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
+```
+##### ★ Pada screen 1 kalian juga dapat menginputkan “register”, setelah menekan enter anda diminta untuk menginputkan username dan password sama halnya seperti login
+
+##### ★ Pada register tidak ada pengecekan unique username, maka setelah register akan langsung menampilkan pesan “register success” dan dapat terjadi double account
+
+ketika user memasukkan pilihan register user akan diminta memasukkan username serta password
+```c
+        else if(strcmp("register",input)==0)
+        {
+            send(sock, input, strlen(input), 0);
+            printf("[[[==========-> REGISTRATION <-==========]]]\n");
+            printf("Username:\t");
+            scanf("%s",usrname);
+            send(sock, usrname, strlen(usrname), 0);
+            printf("Password:\t");
+            scanf("%s",passwrd);
+            send(sock, passwrd, strlen(passwrd), 0);
+        }
+```
+lalu username dan password akan di kirimkan ke server untuk didaftarkan dengan menggunkan
+```c
+            send(sock, usrname, strlen(usrname), 0);
+            send(sock, passwrd, strlen(passwrd), 0);
+```
+setelah itu, client akan menerima pesan dari server apakah username berhasil didaftarkan atau tidak dengan menggunakan
+```c
+        read(sock, regist, 1024);
+```
+
+ketika username serta password berhasil didaftarkan, akan menampilkan "Register Success" ketika gagal didaftarkan akan menampilkan "Register Failed" pada layar client
+```c
+        if(strcmp("Auth Success",regist) == 0)
+        {
+            printf("Register Success\n");
+        }
+        else if(strcmp("Auth Failed",regist) == 0)
+        {
+            printf("Register Failed\n");
+        }
+        else if(strcmp("Login Success",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
+        else if(strcmp("Login Failed",regist) == 0)
+        {
+            printf("%s\n",regist);
+        }
 ```
