@@ -208,3 +208,10 @@ kemudian menampilkan list akun-akun yang telah terdaftar pada server dengan
                 fclose(fp2);
 ```
 ### Client Side
+#### Variabel yang terdapat pada client
+```c
+    int sock = 0, valread;
+    char regist[1024];
+    char usrname[50];
+    char passwrd[50];
+```
