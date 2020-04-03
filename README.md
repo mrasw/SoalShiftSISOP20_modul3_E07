@@ -32,7 +32,61 @@ fp = fopen("akun.txt","a");
 #### ★ Pada saat user berhasil login maka akan menampilkan pesan “Auth success” jika gagal “Auth Failed”.
 
 ```c
+            else if( strcmp("login",status)==0 )
+            {
+                char c;
+                int test1,test2;
+                FILE *fp4;
+                fp4 = fopen("akun.txt","r");
+                read( new_socket, S_username, 1024);
+                read( new_socket, S_password, 1024);
 
+                while((c = getc(fp4)) != EOF)
+                {
+                    fscanf(fp4,"%s",username);
+                    fscanf(fp4,"%s",password);
+                    test1 = strcmp(S_username,username);
+                    test2 = strcmp(S_password,password);
+
+                    if(test1==0 && test2==0)
+                    {
+                        break;
+                    }
+                }
+
+                if(test1==0 && test2==0)
+                {
+                    printf("%s\n",auth1);
+                    send(new_socket, login1, strlen(login1), 0);
+                }
+                else
+                {
+                    printf("%s\n",auth0);
+                    send(new_socket, login0, strlen(login0), 0);
+                }
+            }
+```
+
+untuk login, akan menerima username serta password yang akan di validasi dengan menggunakan
+```c
+
+                read( new_socket, S_username, 1024);
+                read( new_socket, S_password, 1024);
+```
+kemudian username serta password tersebut akan di cek apakah telah terdaftar atau tidak didalam akun.txt dengan menggunakan
+```c
+                while((c = getc(fp4)) != EOF)
+                {
+                    fscanf(fp4,"%s",username);
+                    fscanf(fp4,"%s",password);
+                    test1 = strcmp(S_username,username);
+                    test2 = strcmp(S_password,password);
+
+                    if(test1==0 && test2==0)
+                    {
+                        break;
+                    }
+                }
 ```
 
 #### ★ Pada saat user sukses meregister maka akan menampilkan List account yang terdaftar (username dan password harus terlihat)
@@ -89,9 +143,15 @@ valread = read( new_socket, status, 1024);
                 fclose(fp3);
             }
 ```
+untuk register, code akan menerima username serta password yang akan didaftarkan dengan menggunakan
+```c
+
+                read( new_socket, S_username, 1024);
+                read( new_socket, S_password, 1024);
+```
 
 dalam code diatas menunjukkan bahwa, ketika client melakukan register usename serta password akan di simpan pada akun.txt
-dengan 
+dengan menggunakan
 ```c
 fprintf(fp,"%s",S_username);
 fputs(" ",fp);
