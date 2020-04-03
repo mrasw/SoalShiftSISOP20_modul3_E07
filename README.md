@@ -7,7 +7,7 @@
 #### varibel yang terdapat pada server
 
 ```c
-int server_fd, new_socket, valread;
+    int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
@@ -92,7 +92,7 @@ kemudian username serta password tersebut akan di cek apakah telah terdaftar did
 #### ★ Pada saat user sukses meregister maka akan menampilkan List account yang terdaftar (username dan password harus terlihat)
 
 ```c
-valread = read( new_socket, status, 1024);
+            valread = read( new_socket, status, 1024);
 
             if( strcmp("register",status)==0 )
             {
@@ -172,7 +172,7 @@ fputs("\n",fp);
 ```
 kemudian akan dilakukan validasi apakah username serta password benar benar tersimpan dalam file akun.txt sekaligus mengirimkan pesan pada client bahwa akun telah terdaftar
 ```c
-fp3 = fopen("akun.txt","r");
+                fp3 = fopen("akun.txt","r");
                 while((c = getc(fp3)) != EOF)
                 {
                     // printf("%s\n",S_username);
