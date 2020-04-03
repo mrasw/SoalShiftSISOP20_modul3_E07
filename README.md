@@ -73,7 +73,7 @@ untuk login, akan menerima username serta password yang akan di validasi dengan 
                 read( new_socket, S_username, 1024);
                 read( new_socket, S_password, 1024);
 ```
-kemudian username serta password tersebut akan di cek apakah telah terdaftar atau tidak didalam akun.txt dengan menggunakan
+kemudian username serta password tersebut akan di cek apakah telah terdaftar didalam akun.txt dengan menggunakan
 ```c
                 while((c = getc(fp4)) != EOF)
                 {
@@ -149,7 +149,19 @@ untuk register, code akan menerima username serta password yang akan didaftarkan
                 read( new_socket, S_username, 1024);
                 read( new_socket, S_password, 1024);
 ```
-
+jika telah terdaftar akan mengirimkan pesan pada client "Auth Success" jika tidak akan mengirimkan pesan pada client "Auth Failed" 
+```c
+                if(test1==0 && test2==0)
+                {
+                    printf("%s\n",auth1);
+                    send(new_socket, login1, strlen(login1), 0);
+                }
+                else
+                {
+                    printf("%s\n",auth0);
+                    send(new_socket, login0, strlen(login0), 0);
+                }
+```
 dalam code diatas menunjukkan bahwa, ketika client melakukan register usename serta password akan di simpan pada akun.txt
 dengan menggunakan
 ```c
