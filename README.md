@@ -207,6 +207,63 @@ kemudian menampilkan list akun-akun yang telah terdaftar pada server dengan
                 }
                 fclose(fp2);
 ```
+selanjutnya ketika palyer memasukkan perintah "find" (mencari lawan), maka server akan mencarikan lawan dengan melakukan pengelompokkan pada player player yang memasukkan perintah "find" kedalam fungsi "send_message"
+```c
+void send_message(int sock_player,int start)
+{
+    int cek_id = 0;
+    int player[5];
+    int player_id = 0;
+    char message[1024];
+    int valread;
+    pid_t child;
+```
+mendeklarasikan variabel
+```c
+    while(1)
+    {
+        if(sock_player == client[cek_id])
+        {   
+            if((child = fork()) == 0)
+            {
+             
+                while(1)
+                {
+                    valread = read(sock_player, status, 1024);
+                    if(strcmp("find",status) == 0);
+                    {
+                        player[player_id] = sock_player;
+                        player_id++;
+                        status[0] = '\0';
+                    }
+```
+operasi diatas melakukan pengelompokkan untuk setiap player yang memasukkan perintah "find" dan memberikan id pada player tersebut kemudian disimpan pada array "player[]" (yang dideklarasikan sebelumnya)
+```c
+                    if(((player_id) % 2) == 0 && start == 1)
+                    {
+                        send(sock_player, found, strlen(found), 0);
+```
+kemudian untuk jumlah player yang memasukkan perintah "find" genap dan tidak sama dengan 0, maka game akan dimulai dengan mengirimkan pesan kepada player bahwa game akan dimulai kemudian
+```c
+                        read(sock_player, message, 1024);
+                        if(sock_player == player[0])
+                        {
+                            send(sock_player, message, strlen(message), 0);
+                        }
+                        if(sock_player == player[1])
+                        {
+                            send(sock_player, message, strlen(message), 0);
+                        }
+                    }
+                }
+            }
+        }
+        cek_id++;
+    }
+}
+```
+kemudian server akan melayani pengiriman serangan dari player1 ke player2 berdasarkan sock dari tiap player
+
 ### Client Side
 
 #### Variabel yang terdapat pada client
@@ -358,6 +415,83 @@ ketika username serta password berhasil didaftarkan, akan menampilkan "Register 
             printf("%s\n",regist);
         }
 ```
+### Screen 2
+
+deklarasivariabel untuk screen2
+```c
+        char input[25];
+        int daftar = 1;
+        int login = 1;
+        int cek;
+```
+
+#### ★ Pada screen 2 anda dapat menginputkan “logout” setelah logout anda akan kembali ke screen 1
+```c
+        scanf("%s",input);
+
+        if(strcmp("logout",input) == 0)
+        {
+            send(sock, input, strlen(input), 0);
+            screen1();
+        }
+```
+#### ★ Pada screen 2 anda dapat menginputkan “find”, setelah itu akan menampilkan pesan “Waiting for player ...” print terus sampai menemukan lawan
+
+#### ★ Jika menemukan lawan maka akan menampilkan pesan “Game dimulai silahkan ​ tap ​ ​ tap ​ secepat mungkin !!”
+```c
+        else if(strcmp("find",input) == 0)
+        {
+            cek = send(sock, input, strlen(input), 0);
+            printf("dah mau kirim ke server\n");
+            printf("%d %s\n",cek,input);
+            find();
+        }
+```
+menuju fungsi find()
+```c
+void find()
+{
+    while(1)
+    {
+        printf("waiting for player....\n");
+
+        valread = read(sock, start, 1024);
+
+        if(strcmp ("Found", start) == 0)
+        {
+            printf("Game dimulai silahkan tap tap secepat mungkin!!\n");
+
+            sleep(1);
+
+            pthread_create(&(tid_scrn[2]),NULL,&th_screen,NULL);
+            pthread_create(&(tid_scrn[3]),NULL,&th_screen,NULL);
+        }
+        sleep(1);
+    }
+}
+```
+#### ★ Jika health anda <= 0 maka akan menampilkan pesan “Game berakhir kamu kalah”, apabila lawan anda healthnya <= 0 maka akan menampilkan pesan ”Game berakhir kamu menang”
+```c
+        int HP = 100;
+        char enemys_attck[1024];
+
+        while (1)
+        {
+            read(sock, enemys_attck, 1024);
+            if(strcmp(" ",enemys_attck) == 0)
+            {
+                HP=HP-10;
+                printf("%d",HP);
+            }
+
+            if(HP <= 0)
+            {
+                printf("Game berakhir, kamu kalah");
+                break;
+            }
+        }
+```
+
 ## Soal 4
 
 4a
