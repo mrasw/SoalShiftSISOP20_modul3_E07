@@ -360,12 +360,8 @@ ketika username serta password berhasil didaftarkan, akan menampilkan "Register 
 ```
 ## Soal 4
 
-Batu mulia pertama . Emerald. Batu mulia yang berwarna hijau mengkilat. Pada
-batu itu Ia menemukan sebuah kalimat petunjuk. Ada sebuah teka-teki yang berisi:
-1. Buatlah program C dengan nama " 4a.c ", yang berisi program untuk
-melakukan perkalian matriks. Ukuran matriks pertama adalah 4x2 , dan
-matriks kedua 2x5 . Isi dari matriks didefinisikan di dalam kodingan. Matriks
-nantinya akan berisi angka 1-20 ( tidak perlu dibuat filter angka).
-2. Tampilkan matriks hasil perkalian tadi ke layar.
+4a
+Pertama, dideklarasikan variabel yang digunakan untuk menyimpan matriks yang akan dikalikan serta matriks hasilnya. Selanjutnya, fungsi perkalian dibuat untuk mengalikan matriks. Matriks hasil merupakan hasil matriks3 sebelumnya ditambah hasil perkalian matriks1 dengan matriks 2. Pada fungsi main, dibuat perulangan untuk mengisi matriks 1 dan 2 dengan ngka random. Kemudian matriks 1 dan 2 ditampilkan isinya ke layar. Selanjutnya, dilakukan perulangan dengan thread yang memanggil fungsi perkalian sebanyak empat kali sesuai dengan baris matriks. Lalu, dibuat join thread agar masing - masing thread dapat menyelesaikan tugasnya sampai selesai terlebih dahulu. Selanjutnya, matriks hasil perkalian ditampilkan ke layar.
 
-Pada soal ini kita diminta membuat program yang berisi perkalian matriks. Matriks yang akan dihitung sudah terdefinisi di dalam koding dengan ukuran tertentu. Pada program ini digunakan pointer untuk menyimpan hasil matriks.
+4c
+Pertama, variabel fds untuk pipe dideklarasikan. Selanjutnya, jika pipe(fds) mengembalikan -1 artinya pipe fail. Lalu, dilakukan fork. Saat pid mengembalikan nol, maka proses anak berhasil dibuat. Kemudian standar output file deskriptor dari child ditutup. Input dituliskan ke pipe. Input ini berasal dari output perintah execlp. Lalu, pipe ditutup. Perintah ls execlp kemudian berjalan. Saat pid mengembalikan bukan nol artinya proses berada pada parent. Pertama, standar input file deskriptor ditutup. Selanjutnya dilakukan reading output dari pipe yang selanjutnya menjadi input execlp. Kemudian, pipe yang digunakan untuk write ditutup. Selanjutnya, command wc execlp berjalan menghitung file dan folder di direktori.
